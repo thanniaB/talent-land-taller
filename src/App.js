@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const Header = styled.header`
     background-color: #a42237;
@@ -21,8 +21,34 @@ function App() {
     const [searchText, setSearchText] = useState();
 
     const handleSearchboxChange = (event) => {
-        setSearchText(event.target.value);
+        setTimeout(() => {
+            setSearchText(event.target.value);
+        }, 1000);
     }
+
+    useEffect(() => {
+        let isMounted = true;
+        const fetchPokemon = async () => {
+            try {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchText}`);
+                if (isMounted) {
+                    const responseJson = await response.json();
+                    console.log(responseJson);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        if(searchText) {
+            fetchPokemon().then(r => r);
+        }
+
+        return () => {
+            isMounted = false;
+        };
+    }, [searchText]);
+
   return (
     <div className="App">
       <Header>
