@@ -23,6 +23,7 @@ function App() {
     const handleSearchboxChange = (event) => {
         setSearchText(event.target.value);
     }
+
   return (
     <div className="App">
       <Header>
