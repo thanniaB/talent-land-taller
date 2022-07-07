@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import React, {useState} from 'react';
 
 const Header = styled.header`
     background-color: #a42237;
@@ -17,13 +18,19 @@ const SearchInput = styled.input`
 `;
 
 function App() {
+    const [searchText, setSearchText] = useState();
+
+    const handleSearchboxChange = (event) => {
+        setSearchText(event.target.value);
+    }
   return (
     <div className="App">
       <Header>
         Mi Pokedex en React
       </Header>
       <main>
-        <SearchInput type="text" placeholder="Busca aquí un pokemon"/>
+        <SearchInput type="text" placeholder="Busca aquí un pokemon" onChange={handleSearchboxChange}/>
+          <div>{searchText}</div>
       </main>
     </div>
   );
