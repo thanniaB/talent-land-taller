@@ -22,9 +22,15 @@ const Main = styled.main`
     max-width: 800px;
 `;
 
+const Error = styled.div`
+    color: red;
+    margin-left: 15px;
+`;
+
 function App() {
     const [searchText, setSearchText] = useState();
     const [pokemon, setPokemon] = useState({});
+    const [error, setError] = useState();
 
     const handleSearchboxChange = (event) => {
         setTimeout(() => {
@@ -58,9 +64,10 @@ function App() {
                     const responseJson = await response.json();
                     setPokemon(createPokemon(responseJson));
                     console.log(responseJson);
+                    setError('');
                 }
             } catch (error) {
-                console.log(error);
+                setError(error.toString());
             }
         }
 
@@ -80,6 +87,7 @@ function App() {
       </Header>
       <Main>
         <SearchInput type="text" placeholder="Busca aquí un pokemon" onChange={handleSearchboxChange}/>
+          <Error>{error}</Error>
           <Pokemon pokemon={pokemon}/>
       </Main>
     </div>

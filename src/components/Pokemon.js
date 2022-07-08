@@ -66,7 +66,9 @@ function Pokemon(props) {
         );
     } else {
         return (
-            <div>Busca un pokemon para iniciar</div>
+            <PokeDisplay>
+                <div>Busca un pokemon para iniciar</div>
+            </PokeDisplay>
         );
     }
 
