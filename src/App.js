@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import React, {useEffect, useState} from 'react';
+import Pokemon from "./components/Pokemon";
 
 const Header = styled.header`
     background-color: #a42237;
@@ -40,6 +41,7 @@ function App() {
             speed: responseJson.stats[5].base_stat
         };
         pokemon.spriteUrl = responseJson.sprites.front_default;
+        console.log(pokemon);
         return pokemon;
     }
 
@@ -74,8 +76,7 @@ function App() {
       </Header>
       <main>
         <SearchInput type="text" placeholder="Busca aquí un pokemon" onChange={handleSearchboxChange}/>
-          <div>{pokemon.name}</div>
-          <img src={pokemon.spriteUrl} alt="pokemon sprite"/>
+          <Pokemon pokemon={pokemon}/>
       </main>
     </div>
   );
