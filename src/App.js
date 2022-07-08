@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import React, {useEffect, useState} from 'react';
 import Pokemon from "./components/Pokemon";
 
@@ -15,7 +15,11 @@ const SearchInput = styled.input`
     padding: 0.5rem;
     border: 2px solid gray;
     border-radius: 5px;
-    width: 30%;
+    width: 100%;
+`;
+
+const Main = styled.main`
+    max-width: 800px;
 `;
 
 function App() {
@@ -74,10 +78,10 @@ function App() {
       <Header>
         Mi Pokedex en React
       </Header>
-      <main>
+      <Main>
         <SearchInput type="text" placeholder="Busca aquí un pokemon" onChange={handleSearchboxChange}/>
           <Pokemon pokemon={pokemon}/>
-      </main>
+      </Main>
     </div>
   );
 }
