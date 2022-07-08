@@ -19,11 +19,28 @@ const SearchInput = styled.input`
 
 function App() {
     const [searchText, setSearchText] = useState();
+    const [pokemon, setPokemon] = useState({});
 
     const handleSearchboxChange = (event) => {
         setTimeout(() => {
             setSearchText(event.target.value);
         }, 1000);
+    }
+
+    const createPokemon = (responseJson) => {
+        const pokemon = {};
+        pokemon.name = responseJson.name;
+        pokemon.types = responseJson.types.map((type) => type.type.name);
+        pokemon.stats = {
+            hp: responseJson.stats[0].base_stat,
+            attack: responseJson.stats[1].base_stat,
+            defense: responseJson.stats[2].base_stat,
+            sp_attack: responseJson.stats[3].base_stat,
+            sp_defense: responseJson.stats[4].base_stat,
+            speed: responseJson.stats[5].base_stat
+        };
+        pokemon.spriteUrl = responseJson.sprites.front_default;
+        return pokemon;
     }
 
     useEffect(() => {
@@ -33,6 +50,7 @@ function App() {
                 const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchText}`);
                 if (isMounted) {
                     const responseJson = await response.json();
+                    setPokemon(createPokemon(responseJson));
                     console.log(responseJson);
                 }
             } catch (error) {
@@ -56,7 +74,8 @@ function App() {
       </Header>
       <main>
         <SearchInput type="text" placeholder="Busca aquí un pokemon" onChange={handleSearchboxChange}/>
-          <div>{searchText}</div>
+          <div>{pokemon.name}</div>
+          <img src={pokemon.spriteUrl} alt="pokemon sprite"/>
       </main>
     </div>
   );
